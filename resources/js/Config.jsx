@@ -27,8 +27,8 @@ export default {
         );
     },
 
-    //getUserAll:()=>axios.get(base_api_url + '/admin/user'),
-
+    
+    // ADMIN ROUTES
     getUserAll: (token) => { // Recibe el token como argumento
         return axios.get(
             base_api_url + '/admin/user',
@@ -56,6 +56,31 @@ export default {
     getUserUpdate: (token, data, id) => { // Recibe el token como argumento
         return axios.put(
             `${base_api_url}/admin/user/${id}`, data,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`, // Incluye el token en la cabecera Authorization
+                   
+                },
+            }
+        );
+    },
+
+    //category route
+    getCategoriaAll: (token) => { // Recibe el token como argumento
+        return axios.get(
+            base_api_url + '/admin/categoria',
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`, // Incluye el token en la cabecera Authorization
+                   
+                },
+            }
+        );
+    },
+
+    getCategoriaStore: (token, data) => { // Recibe el token como argumento
+        return axios.post(
+            `${base_api_url}/admin/categoria`, data,
             {
                 headers: {
                     Authorization: `Bearer ${token}`, // Incluye el token en la cabecera Authorization

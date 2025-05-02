@@ -1,53 +1,54 @@
 import React, { useEffect, useState } from 'react'
+import AuthUser from '../pageauth/AuthUser'
 import Sidebar from './Sidebar'
 import Config from '../Config'
-import AuthUser from '../pageauth/AuthUser'
 import { Link } from 'react-router-dom'
 
-const UserAll = () => {
+const CategoriaAll = () => {
 
-  const [user, setUser] = useState()
-  const { getToken } = AuthUser()
+    const [categorias, setCategorias] = useState()
+    const { getToken } = AuthUser()
+    
+    useEffect(()=>{
+      _getCategoriaAll();
+    },[]);
   
-  useEffect(()=>{
-    getUserAll();
-  },[]);
-
-  const getUserAll = async ()=>{
-    const token = getToken();
-    const response = await Config.getUserAll(token)
-    //console.log(response.data)
-    setUser(response.data)
-
-  }
-
-  return (
-    <div className="container">
+    const _getCategoriaAll = async ()=>{
+      const token = getToken();
+      const response = await Config.getCategoriaAll(token)
+      //console.log(response.data)
+      setCategorias(response.data)
+  
+    } 
+    
+    return (
+        <div className="container">
         <div className="row">
         <Sidebar/>
         <div className="col-sm-9 mt-3 mb-3">
             <div className="card">
                 <div className="card-body">
+                    <Link to={'/admin/categoria/create'} className='btn btn-primary'>Agregar categoria</Link>
                     <table className="table">
                         <thead>
                             <tr>
-                            <th>Id</th><th>Name</th><th>Acción</th>
+                            <th>Orden</th><th>Nombre</th><th>Acción</th>
                             </tr>
                         </thead>
                         <tbody>
                             {
-                                !user ? (
+                                !categorias ? (
                                 <tr>
                                     <td colSpan="3">...loading</td>
                                 </tr>
-                                ) : user.map(
-                                    (user)=>{
+                                ) : categorias.map(
+                                    (categoria)=>{
                                         return(
-                                            <tr key={user.id}>
-                                            <td>{user.id}</td>
-                                            <td>{user.name}</td>
+                                            <tr key={categoria.id}>
+                                            <td>{categoria.orden}</td>
+                                            <td>{categoria.nombre}</td>
                                             <td>
-                                                <Link to={`/admin/user/edit/${user.id}`} className='btn btn-primary'>Editar</Link>
+                                                <Link to={`/admin/categoria/edit/${categoria.id}`} className='btn btn-primary'>Editar</Link>
                                             </td>
                                         </tr>
                     
@@ -63,7 +64,7 @@ const UserAll = () => {
         </div>
     </div>
     </div>
-  )
+    )
 }
 
-export default UserAll
+export default CategoriaAll

@@ -10,7 +10,7 @@ class CategoriaController extends Controller
 {
     public function index(){
         //$data = Categoria::all();
-        $data = Categoria::orderBy("orden")->get(["id", "nombre"]);
+        $data = Categoria::orderBy("orden")->get(["id","orden", "nombre"]);
         return response()->json($data, 200);
     }
 

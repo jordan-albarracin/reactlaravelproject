@@ -34,7 +34,7 @@ const Login = () => {
                           data.user.roles[0].name
                         )
                       }else{
-                        setMessage(data.data.message)
+                        setMessage(data.message)
                       }
                   })          
                   
