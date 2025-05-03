@@ -127,7 +127,7 @@ export default {
     },
 
 
-    //Empresa Routes
+    //Empresa Routes ADMIN
     getEmpresaAll: (token) => { // Recibe el token como argumento
         return axios.get(
             base_api_url + '/admin/empresa',
@@ -163,4 +163,19 @@ export default {
             }
         );
     },
+
+    
+    //ROL CLIENTE
+    getEmpresaAllClient: (token) => { // Recibe el token como argumento
+        return axios.get(
+            base_api_url + '/client/empresa',
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`, // Incluye el token en la cabecera Authorization
+                   
+                },
+            }
+        );
+    },
+
 };
