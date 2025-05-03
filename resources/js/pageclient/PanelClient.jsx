@@ -1,8 +1,19 @@
 import React from 'react'
+import Sidebar from './Sidebar'
+
+
 
 const PanelClient = () => {
-  return (
-    <div>PanelClient</div>
+  return (    
+   <div className="container bg-light">
+   <div className='row justify-content-center mt-5 mb-5'>
+    <Sidebar/>
+    <div className='col-sm-9'>
+      <h1 className='text-center'>CLIENT</h1>
+    </div>
+
+  </div>
+ </div>
   )
 }
 

@@ -79,6 +79,7 @@ class CategoriaController extends Controller
     public function destroy($id) {
         $data = Categoria::find($id);
         //eliminar imagen del servidor
+        //url foto es la ruta del archivo con el slug aplicado?
         
         if ($data->urlfoto){
             $imagenPath = public_path('/img/categoria/') . $data->urlfoto;

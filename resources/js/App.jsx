@@ -16,6 +16,9 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './pageauth/Login';
 import Register from './pageauth/Register';
 import PanelAdmin from './pageadmin/PanelAdmin';
+
+
+//ROL CLIENT
 import PanelClient from './pageclient/PanelClient';
 
 
@@ -25,6 +28,8 @@ import UserUpdate from './pageadmin/UserUpdate';
 import CategoriaAll from './pageadmin/CategoriaAll';
 import CategoriaStore from './pageadmin/CategoriaStore';
 import CategoriaUpdate from './pageadmin/CategoriaUpdate';
+import EmpresaAll from './pageadmin/EmpresaAll';
+import EmpresaUpdate from './pageadmin/EmpresaUpdate';
 
 const App = () => {
   return (
@@ -43,9 +48,10 @@ const App = () => {
                 <Route path='categoria' element={<CategoriaAll/>} />
                 <Route path='categoria/create' element={<CategoriaStore/>} />
                 <Route path='categoria/edit/:id' element={<CategoriaUpdate/>} />
+                <Route path='empresa' element={<EmpresaAll/>} />
+                <Route path='empresa/edit/:id' element={<EmpresaUpdate/>} />
               </Route>
               <Route path="/client" element={<LayoutClient/>}>
-                <Route index element={<PageHome/>} />
                 <Route index element={<PanelClient/>} />
               </Route>
           </Route>
