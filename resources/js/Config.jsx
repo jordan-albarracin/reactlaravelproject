@@ -78,9 +78,45 @@ export default {
         );
     },
 
-    getCategoriaStore: (token, data) => { // Recibe el token como argumento
+        getCategoriaStore: (token, data) => { // Recibe el token como argumento
         return axios.post(
             `${base_api_url}/admin/categoria`, data,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`, // Incluye el token en la cabecera Authorization
+                   
+                },
+            }
+        );
+    },
+
+    getCategoriaById: (token, id) => { // Recibe el token como argumento
+        return axios.get(
+            `${base_api_url}/admin/categoria/${id}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`, // Incluye el token en la cabecera Authorization
+                   
+                },
+            }
+        );
+    },
+
+    getCategoriaUpdate: (token, data, id) => { // Recibe el token como argumento
+        return axios.put(
+            `${base_api_url}/admin/categoria/${id}`, data,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`, // Incluye el token en la cabecera Authorization
+                   
+                },
+            }
+        );
+    },
+
+    getCategoriaDeleteById: (token, id) => { // Recibe el token como argumento
+        return axios.delete(
+            `${base_api_url}/admin/categoria/${id}`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`, // Incluye el token en la cabecera Authorization
