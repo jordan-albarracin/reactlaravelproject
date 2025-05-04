@@ -32,6 +32,7 @@ import CategoriaStore from './pageadmin/CategoriaStore';
 import CategoriaUpdate from './pageadmin/CategoriaUpdate';
 import EmpresaAll from './pageadmin/EmpresaAll';
 import EmpresaUpdate from './pageadmin/EmpresaUpdate';
+import EmpresaUpdateClient from './pageclient/EmpresaUpdate';
 
 const App = () => {
   return (
@@ -57,6 +58,7 @@ const App = () => {
                 <Route index element={<PanelClient/>} />
                 <Route path='empresa' element={<EmpresaAllClient/>} />
                 <Route path='empresa/create' element={<EmpresaStoreClient/>} />
+                <Route path='empresa/edit/:id' element={<EmpresaUpdateClient/>} />
               </Route>
           </Route>
         </Routes>

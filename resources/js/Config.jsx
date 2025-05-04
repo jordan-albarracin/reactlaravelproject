@@ -190,4 +190,28 @@ export default {
         );
     },
 
+    getEmpresaByIdClient: (token, id) => { // Recibe el token como argumento
+        return axios.get(
+            `${base_api_url}/client/empresa/${id}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`, // Incluye el token en la cabecera Authorization
+                   
+                },
+            }
+        );
+    },
+
+    getEmpresaUpdateClient: (token, data, id) => { // Recibe el token como argumento
+        return axios.put(
+            `${base_api_url}/client/empresa/${id}`, data,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`, // Incluye el token en la cabecera Authorization
+                   
+                },
+            }
+        );
+    },
+
 };
