@@ -21,6 +21,7 @@ import PanelAdmin from './pageadmin/PanelAdmin';
 //ROL CLIENT
 import PanelClient from './pageclient/PanelClient';
 import EmpresaAllClient from './pageclient/EmpresaAll';
+import EmpresaStoreClient from './pageclient/EmpresaStore';
 
 
 //Rol Admin
@@ -55,6 +56,7 @@ const App = () => {
               <Route path="/client" element={<LayoutClient/>}>
                 <Route index element={<PanelClient/>} />
                 <Route path='empresa' element={<EmpresaAllClient/>} />
+                <Route path='empresa/create' element={<EmpresaStoreClient/>} />
               </Route>
           </Route>
         </Routes>

@@ -178,4 +178,16 @@ export default {
         );
     },
 
+    getEmpresaStoreClient: (token, data) => { // Recibe el token como argumento
+        return axios.post(
+            `${base_api_url}/client/empresa`, data,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`, // Incluye el token en la cabecera Authorization
+                   
+                },
+            }
+        );
+    },
+
 };
