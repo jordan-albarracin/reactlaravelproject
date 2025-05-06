@@ -23,15 +23,21 @@ const EmpresaUpdate = () => {
     const [urlfoto, SetUrlfoto ] = useState("")
     const [categoria_id, setCategoria_id ] = useState()
     const [file, setFile] = useState("")
+    const [nuevaImagen, setNuevaImagen] = useState(null);
+    const [imagenExistente, setImagenExistente] = useState("");
 
     const handleInputChange = async(e) =>{
-        let files = e.target.files
-        let reader = new FileReader();
-        reader.readAsDataURL(files[0])
-        reader.onload = (e)=>{
-          SetUrlfoto(e.target.result)
+            const file = e.target.files[0];
+            if (!file) return;
+        
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                setNuevaImagen(e.target.result); // Guarda el Base64 para la vista previa
+                SetUrlfoto(e.target.result); // Guarda el Base64 para enviar al backend
+            };
+            reader.readAsDataURL(file);
         }
-    }
+    
     
     useEffect(() => {
         const getEmpresa = async () => {
@@ -50,6 +56,7 @@ const EmpresaUpdate = () => {
                     setTiktok(data.tiktok)
                     SetUrlfoto(data.urlfoto)
                     setCategoria_id(data.categoria_id)
+                    setImagenExistente(data.urlfoto)
                 })
     
     };
@@ -111,8 +118,11 @@ const getCategoriaId = (v) => { setCategoria_id(v) }
                   <input className='form-control' value={orden} onChange={(e) => setOrden(e.target.value)} type='number' />
                 </div>
                 <div className="col-sm-3">
-                  <label>Categoria</label>
-                  <Select selec={categoria_id} selected={getCategoriaId} />
+                <label>Categoría</label>
+                  <Select 
+                      value={categoria_id || ""} 
+                      onChange={(value) => setCategoria_id(Number(value))} 
+                  />
                 </div>
                 </div>
 
@@ -141,9 +151,34 @@ const getCategoriaId = (v) => { setCategoria_id(v) }
                 </div>                
                 <div className="mt-3">
                   <label>Imágen:</label>
-                  <img src={"/img/empresa/" + urlfoto} loading='lazy' width={200} height={200} className='img-fluid img-thumbnail' />
-                  <input className='form-control' type='file' onChange={(e) => handleInputChange(e)}/>
-                </div>
+                  {/* Muestra la imagen existente o la nueva vista previa */}
+                        {nuevaImagen ? (
+                            <img 
+                                src={nuevaImagen} 
+                                loading="lazy" 
+                                width={200} 
+                                height={200} 
+                                className="img-fluid img-thumbnail mb-2"
+                                alt="Nueva imagen seleccionada"
+                            />
+                        ) : imagenExistente ? (
+                            <img 
+                                src={`http://localhost:8000/img/empresa/${imagenExistente}?${Date.now()}`} 
+                                loading="lazy" 
+                                width={200} 
+                                height={200} 
+                                className="img-fluid img-thumbnail mb-2"
+                                alt="Imagen actual"
+                            />
+                        ) : null}
+                        
+                        <input 
+                            className="form-control" 
+                            type="file" 
+                            onChange={handleInputChange}
+                            accept="image/*"
+                        />
+                  </div>
                 <div className="btn-group mt-3">
                   <Link to={-1} className='btn btn-secondary'>← Back</Link>
                   <button type='submit' className='btn btn-primary'>Actualizar Empresa</button>

@@ -90,8 +90,11 @@ const EmpresaStore = () => {
                   <input className='form-control' value={orden} onChange={(e) => setOrden(e.target.value)} type='number' />
                 </div>
                 <div className="col-sm-3">
-                  <label>Categoria</label>
-                  <Select selected={getCategoriaId} />
+                <label>Categoría</label>
+                  <Select 
+                      value={categoria_id || ""} 
+                      onChange={(value) => setCategoria_id(Number(value))} 
+                  />
                 </div>
                 </div>
 
