@@ -214,4 +214,24 @@ export default {
         );
     },
 
+
+
+    //PUBLIC ROUTES
+    getEmpresas: (data) => {
+        return axios.get(`${base_api_url}/public/empresas/${data}`)
+    },
+
+    searchEmpresas: (data) => { 
+        return axios.post(`${base_api_url}/public/empresas/search`, data)
+    },
+
+    getCategoriasAll: () => { 
+        return axios.get(
+            base_api_url + '/public/categorias');
+    },
+
+    getCategoriaBySlug: (slug) => { // Recibe el slug como argumento
+        return axios.get(`${base_api_url}/public/categorias/${slug}`);
+    },
+
 };

@@ -12,7 +12,12 @@ use App\Http\Controllers\Api\Client\EmpresaController as EmpresaClient;
 Route::prefix('v1')->group(function () {
     /////////////////PUBLIC
     //::public
-    Route::get('/public/{slug}', [FrontController::class, 'categoria']);
+    Route::get('/public/empresas/{quantity}', [FrontController::class, 'empresas']);
+    Route::post('/public/empresas/search', [FrontController::class, 'search']);
+    Route::get('/public/categorias', [FrontController::class, 'categorias']);
+    Route::get('/public/categorias/{slug}', [FrontController::class, 'categoria']);
+    //Route::get('/public/{slug}', [FrontController::class, 'categoria']);
+    
     
     //::auth
     Route::post('/auth/register', [AuthController::class, 'register']);

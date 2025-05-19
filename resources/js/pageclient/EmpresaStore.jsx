@@ -20,15 +20,22 @@ const EmpresaStore = () => {
     const [urlfoto, SetUrlfoto ] = useState("")
     const [categoria_id, setCategoria_id ] = useState("")
 
+
+    const [previewImage, setPreviewImage] = useState(null);
+
     const navigate = useNavigate()
   
     const handleInputChange = async(e) =>{
-      let files = e.target.files
-      let reader = new FileReader();
-      reader.readAsDataURL(files[0])
-      reader.onload = (e)=>{
-        SetUrlfoto(e.target.result)
-      }   
+      const file = e.target.files[0];
+      if (!file) return;
+    
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setPreviewImage(e.target.result); // Guarda para vista previa
+        SetUrlfoto(e.target.result);     // Guarda para enviar al backend
+      };
+      reader.readAsDataURL(file);
+      
   
     }
     
@@ -36,27 +43,34 @@ const EmpresaStore = () => {
       setCategoria_id(v)
     }
 
-    const submitStore = async(e) =>{
+    const submitStore = async(e) => {
       e.preventDefault();
-      const token = getToken()
-      
-      await Config.getEmpresaStoreClient(token, {
-        nombre,
-        email,
-        telefono,
-        direccion,
-        website,
-        facebook,
-        youtube,
-        tiktok,
-        descripcion,
-        orden,
-        urlfoto,
-        categoria_id
-      })
-
-      navigate('/client/empresa')
-    }
+      try {
+        const token = getToken()
+        
+        const response = await Config.getEmpresaStoreClient(token, {
+          nombre,
+          email,
+          telefono,
+          direccion,
+          website,
+          facebook,
+          youtube,
+          tiktok,
+          descripcion,
+          orden,
+          urlfoto,
+          categoria_id
+        });
+    
+        if(response.status === 200 || response.status === 201) {
+          navigate('/client/empresa');
+        }
+      } catch (error) {
+        console.error("Error al guardar la empresa:", error);
+        alert("Ocurrió un error al guardar la empresa. Por favor, inténtalo de nuevo.");
+      }
+    };
   
   return (
     <div className="container bg-light">
@@ -122,9 +136,23 @@ const EmpresaStore = () => {
                 
                 </div>                
                 <div className="mt-3">
-                  <label>Imágen:</label>
-                  <input className='form-control' type='file' onChange={(e) => handleInputChange(e)}/>
-                </div>
+                    <label>Imágen:</label>
+                      {/* Vista previa */}
+                      {previewImage && (
+                        <img 
+                          src={previewImage} 
+                          className="img-thumbnail mb-2" 
+                          style={{ maxWidth: '200px', maxHeight: '200px' }}
+                          alt="Vista previa"
+                        />
+                      )}
+                      <input 
+                        className='form-control' 
+                        type='file' 
+                        onChange={handleInputChange}
+                        accept="image/*"  // Solo acepta archivos de imagen
+                      />
+                      </div>
                 <div className="btn-group mt-3">
                   <Link to={-1} className='btn btn-secondary'>← Back</Link>
                   <button type='submit' className='btn btn-primary'>Crear Empresa</button>

@@ -7,9 +7,13 @@ import LayoutAdmin from './layouts/LayoutAdmin';
 import LayoutClient from './layouts/LayoutClient';
 
 //public
-import PageHome from './pagepublic/PageHome';
+import Home from './pagepublic/Home';
+import NotFound from './pagepublic/NotFound';
+import Categorias from './pagepublic/Categorias';
+import Categoria from './pagepublic/Categoria';
 import ProtectedRoutes from './pageauth/ProtectedRoutes';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
 
 
 //auth
@@ -34,14 +38,19 @@ import EmpresaAll from './pageadmin/EmpresaAll';
 import EmpresaUpdate from './pageadmin/EmpresaUpdate';
 import EmpresaUpdateClient from './pageclient/EmpresaUpdate';
 
+
+
 const App = () => {
   return (
       <Router>
         <Routes>
           <Route path="/" element={<LayoutPublic/>}>
-            <Route index element={<PageHome/>} />
             <Route path='/login' element={<Login/>} />
             <Route path='/register' element={<Register/>} />
+            <Route path='/*' element={<NotFound/>} />
+            <Route index element={<Home/>} />
+            <Route path='/categorias' element={<Categorias/>} />
+            <Route path='/categorias/:slug' element={<Categoria/>} />
           </Route>
           <Route element={<ProtectedRoutes/>}>
               <Route path="/admin" element={<LayoutAdmin/>}>
